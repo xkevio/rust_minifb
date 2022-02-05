@@ -18,6 +18,7 @@ use std::os::windows::prelude::OsStrExt;
 #[derive(Clone, Copy, Debug)]
 pub enum Icon {
     Path(*const u16, usize),
+    MacTest(*const u8, usize),
     Buffer(*const u64, u32),
 }
 
@@ -30,17 +31,19 @@ impl FromStr for Icon {
             return Err("Path to icon cannot be empty!");
         }
 
-        
         #[cfg(target_os = "windows")]
         let v: Vec<u16> = OsStr::new(s)
             .encode_wide()
             .chain(Some(0).into_iter())
             .collect();
 
-        #[cfg(target_os = "macos")]
-        let v: Vec<u16> = s.encode_utf16().collect();
+        // #[cfg(target_os = "windows")]
+        // let v: Vec<u16> = s.encode_utf16().collect();
 
-        Ok(Icon::Path(v.as_ptr(), v.len()))
+        #[cfg(target_os = "windows")]
+        return Ok(Icon::Path(v.as_ptr(), v.len()));
+        #[cfg(target_os = "macos")]
+        return Ok(Icon::MacTest(s.as_ptr(), s.len()));
     }
 }
 

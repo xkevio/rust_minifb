@@ -331,7 +331,7 @@ impl Window {
     #[inline]
     pub fn set_icon(&mut self, icon: Icon) {
         unsafe {
-            if let Icon::Path(path, len) = icon {
+            if let Icon::MacTest(path, len) = icon {
                 mfb_set_icon(self.window_handle, path, len as u64);
             }
         }
