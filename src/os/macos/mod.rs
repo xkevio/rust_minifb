@@ -183,7 +183,7 @@ extern "C" {
         cb: unsafe extern "C" fn(*mut c_void, u32),
     );
     fn mfb_set_mouse_data(window_handle: *mut c_void, shared_data: *mut SharedData);
-    fn mfb_set_icon(window: *mut c_void, path: *const c_char);
+    fn mfb_set_icon(window: *mut c_void, path: *const u16, length: u64);
     fn mfb_set_cursor_style(window: *mut c_void, cursor: u32);
     fn mfb_set_cursor_visibility(window: *mut c_void, visibility: bool);
     fn mfb_should_close(window: *mut c_void) -> i32;

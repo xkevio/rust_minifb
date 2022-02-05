@@ -99,7 +99,7 @@ impl Window {
     }
 
     pub fn set_icon(&mut self, _icon: Icon) {
-        unimplemented!("Currenty not implemented on RedoxOS")
+        unimplemented!("Not implemented on RedoxOS")
     }
 
     pub fn get_window_handle(&self) -> *mut raw::c_void {
