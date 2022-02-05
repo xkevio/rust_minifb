@@ -1,5 +1,6 @@
 #[cfg(target_os = "linux")]
 use std::convert::TryFrom;
+use std::ffi::CString;
 #[cfg(any(target_os = "windows", target_os = "macos"))]
 use std::{ffi::OsStr, str::FromStr};
 #[cfg(any(target_os = "windows"))]
@@ -18,7 +19,7 @@ use std::os::windows::prelude::OsStrExt;
 #[derive(Clone, Copy, Debug)]
 pub enum Icon {
     Path(*const u16, usize),
-    MacTest(*const u8, usize),
+    MacTest(*const i8, usize),
     Buffer(*const u64, u32),
 }
 
@@ -42,8 +43,10 @@ impl FromStr for Icon {
 
         #[cfg(target_os = "windows")]
         return Ok(Icon::Path(v.as_ptr(), v.len()));
-        #[cfg(target_os = "macos")]
-        return Ok(Icon::MacTest(s.as_ptr(), s.len()));
+        #[cfg(target_os = "macos")] {
+            let string = CString::new(s).unwrap();
+            return Ok(Icon::MacTest(string.as_ptr(), s.len()));
+        }
     }
 }
 
