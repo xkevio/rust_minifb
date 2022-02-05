@@ -17,7 +17,7 @@ fn main() {
     )
     .expect("Unable to open Window");
 
-    #[cfg(target_os = "windows")]
+    #[cfg(any(target_os = "windows", target_os = "macos"))]
     window.set_icon(Icon::from_str("resources/icon256.ico").unwrap());
 
     #[cfg(target_os = "linux")]
