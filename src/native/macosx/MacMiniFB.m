@@ -437,7 +437,7 @@ void mfb_set_cursor_visibility(void *window, bool visibility)
 void mfb_set_icon(void *window, const char* path, uint64_t length) 
 {
 	NSString* path_string = [NSString stringWithUTF8String: path];
-	NSImage* icon = [[NSImage alloc] NSImage initByReferencingFile: path_string];
+	NSImage* icon = [[NSImage alloc] initByReferencingFile: path_string];
 
 	[NSApp setApplicationIconImage: icon];
 }
