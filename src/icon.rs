@@ -1,7 +1,7 @@
 #[cfg(target_os = "linux")]
 use std::convert::TryFrom;
-use std::ffi::CString;
 #[cfg(any(target_os = "windows", target_os = "macos"))]
+use std::ffi::CString;
 use std::{ffi::OsStr, str::FromStr};
 #[cfg(any(target_os = "windows"))]
 use std::os::windows::prelude::OsStrExt;
