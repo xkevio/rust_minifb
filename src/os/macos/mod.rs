@@ -332,7 +332,7 @@ impl Window {
     pub fn set_icon(&mut self, icon: Icon) {
         unsafe {
             if let Icon::Path(path, len) = icon {
-                mfb_set_icon(self.window_handle, path.as_ptr(), len as u64);
+                mfb_set_icon(self.window_handle, path, len as u64);
             }
         }
     }

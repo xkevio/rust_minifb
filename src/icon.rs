@@ -1,7 +1,9 @@
 #[cfg(target_os = "linux")]
 use std::convert::TryFrom;
 #[cfg(any(target_os = "windows", target_os = "macos"))]
-use std::{ffi::OsStr, os::windows::prelude::OsStrExt, str::FromStr};
+use std::{ffi::OsStr, str::FromStr};
+#[cfg(any(target_os = "windows"))]
+use std::os::windows::prelude::OsStrExt;
 
 ///
 /// Represents a window icon
@@ -28,10 +30,15 @@ impl FromStr for Icon {
             return Err("Path to icon cannot be empty!");
         }
 
+        
+        #[cfg(target_os = "windows")]
         let v: Vec<u16> = OsStr::new(s)
             .encode_wide()
             .chain(Some(0).into_iter())
             .collect();
+
+        #[cfg(target_os = "macos")]
+        let v: Vec<u16> = s.encode_utf16().collect();
 
         Ok(Icon::Path(v.as_ptr(), v.len()))
     }
