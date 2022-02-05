@@ -1,6 +1,6 @@
 #[cfg(target_os = "linux")]
 use std::convert::TryFrom;
-#[cfg(target_os = "windows")]
+#[cfg(any(target_os = "windows", target_os = "macos"))]
 use std::str::FromStr;
 
 use minifb::{Icon, Key, Window, WindowOptions};
