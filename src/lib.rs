@@ -267,7 +267,7 @@ impl Window {
     /// - X11: Needs a `u64` buffer with ARGB data
     /// - Wayland: *not implemented* (use a `.desktop` file)
     ///
-    /// **MacOS:**
+    /// **MacOS:** Has to be a relative path to an image. Supports all the file formats of `NSImage`
     ///
     /// **RedoxOS:** *not implemented*
     ///

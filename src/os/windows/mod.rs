@@ -632,7 +632,7 @@ impl Window {
     #[inline]
     pub fn set_icon(&mut self, icon: Icon) {
         unsafe {
-            if let Icon::Path(s_pointer) = icon {
+            if let Icon::Path(s_pointer, _) = icon {
                 let mut buffer: Vec<u16> = Vec::new();
 
                 // call once to get the size of the buffer

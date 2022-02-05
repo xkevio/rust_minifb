@@ -1,6 +1,6 @@
 #[cfg(target_os = "linux")]
 use std::convert::TryFrom;
-#[cfg(target_os = "windows")]
+#[cfg(any(target_os = "windows", target_os = "macos"))]
 use std::{ffi::OsStr, os::windows::prelude::OsStrExt, str::FromStr};
 
 ///
@@ -8,18 +8,18 @@ use std::{ffi::OsStr, os::windows::prelude::OsStrExt, str::FromStr};
 ///
 /// Different under Windows, Linux and MacOS
 ///
-/// **Windows**: Icon can be created from a relative path string
+/// **Windows / MacOS**: Icon can be created from a relative path string
 ///
 /// **Linux / X11:** Icon can be created from an ARGB buffer
 ///
 ///
 #[derive(Clone, Copy, Debug)]
 pub enum Icon {
-    Path(*const u16),
+    Path(*const u16, usize),
     Buffer(*const u64, u32),
 }
 
-#[cfg(target_os = "windows")]
+#[cfg(any(target_os = "windows", target_os = "macos"))]
 impl FromStr for Icon {
     type Err = &'static str;
 
@@ -33,7 +33,7 @@ impl FromStr for Icon {
             .chain(Some(0).into_iter())
             .collect();
 
-        Ok(Icon::Path(v.as_ptr()))
+        Ok(Icon::Path(v.as_ptr(), v.len()))
     }
 }
 

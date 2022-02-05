@@ -4,6 +4,7 @@
 #include <Carbon/Carbon.h>
 #include <MetalKit/MetalKit.h>
 #include <unistd.h>
+#include <stdint.h>
 
 extern id<MTLCommandQueue> g_command_queue;
 extern id<MTLLibrary> g_library;
@@ -431,6 +432,14 @@ void mfb_set_cursor_visibility(void *window, bool visibility)
 	else{
 		[NSCursor hide];
 	}
+}
+
+void mfb_set_icon(void *window, const uint16_t* path, uint64_t length) 
+{
+	NSString* path_string = [NSString init: path length: length];
+	NSImage* icon = [NSImage init: path_string]
+
+	[NSApp setApplicationIconImage: icon];
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
